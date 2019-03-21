@@ -1,5 +1,5 @@
-# will-app
-will management application
+# will-management-app
+A decentralized will management application using hyperledger composer.
 
 # main participants
 * WillOwner
