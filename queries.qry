@@ -1,0 +1,52 @@
+query GetWillDetailsByOwnerId{
+  description: "Get will details by owner id"
+  statement:
+    SELECT org.sample.management.will.Will
+    WHERE (owner.adhaarCard == _$id)
+}
+
+query GetWillsRejectedByLegalCustodian{
+  description: "Get all wills rejected by legal custodian"
+  statement:
+    SELECT org.sample.management.will.Will
+    WHERE (legalCustodian.adhaarCard == _$id AND status == "REJECTED_BY_LEGAL_CUSTODIAN")
+}
+
+query GetWillsRejectedByJudicialOfficer{
+  description: "Get wills rejected by judicial officer"
+  statement:
+    SELECT org.sample.management.will.Will
+    WHERE (judicialOfficer.adhaarCard == _$id AND status == "REJECTED_BY_JUDICIAL_OFFICER")
+}
+
+query GetAllRegisteredWillOwners{
+  description: "Get all registered will owners"
+  statement:
+   SELECT org.sample.management.will.participant.WillOwner
+}
+
+query GetAllRegisteredLegalCustodianDetails{
+  description: "Returns all legal custodian details"
+  statement:
+    SELECT org.sample.management.will.participant.LegalCustodian
+}
+
+query GetAllRegisteredJudicialOfficerDetails{
+  description: "Returns all judicial officer details"
+  statement:
+    SELECT org.sample.management.will.participant.JudicialOfficer
+}
+
+query GetLegalCustodianDetailsByLegalLicenseNumber{
+  description: "Returns legal custodian details containing specified legal license number"
+  statement:
+    SELECT org.sample.management.will.participant.LegalCustodian
+    WHERE (legalLicenseNumber == _$legalLicenseNumber)
+}
+
+query GetJudicialOfficerDetailsByCentralGovernmentEmployeeId{
+  description: "Returns judicial officer details containing specified central government employee id"
+  statement:
+    SELECT org.sample.management.will.participant.JudicialOfficer
+    WHERE (centralGovernmentEmployeeId == _$centralGovernmentEmployeeId)
+}

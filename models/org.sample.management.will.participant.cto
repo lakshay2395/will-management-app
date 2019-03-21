@@ -1,0 +1,71 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace org.sample.management.will.participant
+
+enum Gender{
+  o MALE
+  o FEMALE
+  o TRANSGENDER
+}
+
+concept Name{
+  o String fName
+  o String lName
+}
+
+abstract participant WillManagementParty identified by adhaarCard {
+  o String adhaarCard
+  o Name name
+  o Integer age
+  o Gender gender
+}
+
+participant WillOwner extends WillManagementParty{
+}
+
+participant LegalCustodian extends WillManagementParty{
+  o String legalLicenseNumber
+}
+
+participant JudicialOfficer extends WillManagementParty{
+  o String centralGovernmentEmployeeId
+}
+
+transaction CreateWillOwner{
+  o String adhaarCard
+  o Name name
+  o Integer age
+  o Gender gender
+}
+
+transaction CreateLegalCustodian{
+  o String adhaarCard
+  o Name name
+  o Integer age
+  o Gender gender
+  o String legalLicenseNumber
+}
+
+transaction CreateJudicialOfficer{
+  o String adhaarCard
+  o Name name
+  o Integer age
+  o Gender gender
+  o String centralGovernmentEmployeeId
+}

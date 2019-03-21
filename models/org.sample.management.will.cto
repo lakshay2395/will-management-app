@@ -1,0 +1,118 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Write your model definitions here
+ */
+
+namespace org.sample.management.will
+
+import org.sample.management.will.participant.*
+
+asset Will identified by willId{
+  o String willId
+  o Double amount
+  o String content
+  o DateTime creationDate
+  o WillStatus status
+  --> WillOwner owner
+  o DateTime legalCustodianLastStatusUpdationDate optional
+  o DateTime judicialOfficerLastStatusUpdationDate optional
+  o String lastLegalCustodianRemark optional
+  o String lastJudicialOfficerRemark optional
+  --> LegalCustodian legalCustodian 
+  --> JudicialOfficer judicialOfficer optional
+}
+
+enum WillStatus{
+  o APPROVAL_REQUEST_TO_LEGAL_CUSTODIAN
+  o APPROVAL_REQUEST_TO_JUDICIAL_OFFICER
+  o REJECTED_BY_LEGAL_CUSTODIAN
+  o REJECTED_BY_JUDICIAL_OFFICER
+  o APPROVED
+  o DELETED
+}
+
+event WillCreated{
+  o String willId
+}
+
+event WillDeleted{
+  o String willId
+}
+
+event LegalCustodianApprovedWill {
+  o String willId
+}
+
+event LegalCustodianRejectedWill{
+  o String willId
+}
+
+event JudicialOfficerApprovedWill {
+  o String willId
+}
+
+event JudicialOfficerRejectedWill{
+  o String willId
+}
+
+event WillApproved{
+  o String willId
+}
+
+event WillUpdated{
+  o String willId
+}
+
+transaction CreateWill{
+  o String willId
+  o Double amount
+  o String content
+  o String willOwnerId
+  o String legalCustodianId
+}
+
+transaction UpdateWill{
+  o String willId
+  o Double amount
+  o String content
+}
+
+transaction DeleteWill{
+  o String willId
+}
+
+transaction RejectWillAsLegalCustodian{
+  o String willId
+  o String lastLegalCustodianRemark
+}
+
+transaction RejectWillAsJudicialOfficer{
+  o String willId
+  o String lastJudicialOfficerRemark
+}
+
+transaction ApproveWillAsLegalCustodian{
+  o String willId
+  o String judicialOfficerId
+  o String lastLegalCustodianRemark
+}
+
+transaction ApproveWillAsJudicialOfficer{
+  o String willId
+  o String lastJudicialOfficerRemark
+}
+
+
